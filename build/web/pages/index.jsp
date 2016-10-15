@@ -15,7 +15,7 @@
                 <li><a href="pages/funcionario.jsp">Funcionários</a></li>
                 <li><a href="pages/associado.jsp">Associados</a></li>
                 <li><a>Publicações</a></li>
-                <li><a>Exemplares</a></li>
+                <li><a href="pages/exemplar.jsp">Exemplares</a></li>
                 <li><a>Relatórios</a></li>
             </ul>
         </div>
