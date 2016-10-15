@@ -27,8 +27,9 @@ public class PublicacaoCRUD extends HttpServlet {
         dao = new PublicacaoDAO();
         if (request.getParameter("tipo") != null && request.getParameter("tipo").equals("cadastro")) {
             if (dao.inserir(publicacao)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("pages/publicacao.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("pages/publicacao.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/biblioteca/pages/publicacao.jsp");
             }
         }
     }

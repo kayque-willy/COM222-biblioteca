@@ -28,8 +28,9 @@ public class AssociadoCRUD extends HttpServlet {
         dao = new AssociadoDAO();
         if (request.getParameter("tipo") != null && request.getParameter("tipo").equals("cadastro")) {
             if (dao.inserir(associado)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("pages/associado.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("pages/associado.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/biblioteca/pages/associado.jsp");
             }
         }
     }

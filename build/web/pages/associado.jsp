@@ -18,7 +18,7 @@
                 <li><a>Efetuar Empréstimos</a></li>
                 <li><a href="funcionario.jsp">Funcionários</a></li>
                 <li><a href="associado.jsp">Associados</a></li>
-                <li><a>Publicações</a></li>
+                <li><a href="publicacao.jsp">Publicações</a></li>
                 <li><a href="exemplar.jsp">Exemplares</a></li>
                 <li><a>Relatórios</a></li>
             </ul>

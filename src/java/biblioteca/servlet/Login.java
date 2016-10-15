@@ -30,12 +30,14 @@ public class Login extends HttpServlet {
             if (funcionario != null) {
                 request.getSession().setAttribute("usuario", funcionario.getNome());
                 // redireciona para página principal
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/biblioteca/pages/index.jsp");
             } else {
                 // redireciona para página de login com erro
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/loginErro.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("/loginErro.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/loginErro.jsp");
             }
         }
     }

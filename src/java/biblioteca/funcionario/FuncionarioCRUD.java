@@ -26,8 +26,9 @@ public class FuncionarioCRUD extends HttpServlet {
         dao = new FuncionarioDAO();
         if (request.getParameter("tipo") != null && request.getParameter("tipo").equals("cadastro")) {
             if (dao.inserir(funcionario)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("pages/funcionario.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("pages/funcionario.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/biblioteca/pages/funcionario.jsp");
             }
         }
     }

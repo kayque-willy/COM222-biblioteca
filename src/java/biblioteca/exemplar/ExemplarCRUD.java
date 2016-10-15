@@ -24,8 +24,9 @@ public class ExemplarCRUD extends HttpServlet {
         dao = new ExemplarDAO();
         if (request.getParameter("tipo") != null && request.getParameter("tipo").equals("cadastro")) {
             if (dao.inserir(exemplar)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("pages/exemplar.jsp");
-                dispatcher.forward(request, response);
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("pages/exemplar.jsp");
+                //dispatcher.forward(request, response);
+                response.sendRedirect("/biblioteca/pages/exemplar.jsp");
             }
         }
     }
