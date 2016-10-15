@@ -9,7 +9,7 @@
         <div>
             Usuário ou senha inválidos!
         </div>
-        <form action="/biblioteca/Login">
+        <form action="/ProjetoBaldochi/Login">
             Login:<input type="text" name="login" value=""/><br/>
             Senha<input type="password" name="senha" value=""/><br/>
             <button type="submmit" value="Entrar">Entrar</button>

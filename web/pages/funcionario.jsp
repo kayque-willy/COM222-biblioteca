@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
-        response.sendRedirect("/biblioteca/login.jsp");
+        response.sendRedirect("/ProjetoBaldochi/login.jsp");
     }%>
 <html>
     <head>
@@ -34,7 +34,7 @@
         %>
         <div>
             <h1>Adicionar:</h1>
-            <form id="form-add" action="/biblioteca/FuncionarioCRUD">
+            <form id="form-add" action="/ProjetoBaldochi/FuncionarioCRUD">
                 Código:<input type="text" name="codigo"/><br/>
                 Nome:<input type="text" name="nome"/><br/>
                 Endereço:<input type="text" name="endereco"/><br/>

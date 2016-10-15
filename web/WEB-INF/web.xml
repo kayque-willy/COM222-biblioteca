@@ -13,6 +13,22 @@
         <servlet-name>FuncionarioCRUD</servlet-name>
         <servlet-class>biblioteca.funcionario.FuncionarioCRUD</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AssociadoCRUD</servlet-name>
+        <servlet-class>biblioteca.associado.AssociadoCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExemplarCRUD</servlet-name>
+        <servlet-class>biblioteca.exemplar.ExemplarCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PublicacaoCRUD</servlet-name>
+        <servlet-class>biblioteca.publicacao.PublicacaoCRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmprestimoCRUD</servlet-name>
+        <servlet-class>biblioteca.emprestimo.EmprestimoCRUD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -20,6 +36,22 @@
     <servlet-mapping>
         <servlet-name>FuncionarioCRUD</servlet-name>
         <url-pattern>/FuncionarioCRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssociadoCRUD</servlet-name>
+        <url-pattern>/AssociadoCRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExemplarCRUD</servlet-name>
+        <url-pattern>/ExemplarCRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublicacaoCRUD</servlet-name>
+        <url-pattern>/PublicacaoCRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmprestimoCRUD</servlet-name>
+        <url-pattern>/EmprestimoCRUD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
