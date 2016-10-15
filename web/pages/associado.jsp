@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
-        response.sendRedirect("/ProjetoBaldochi/login.jsp");
+        response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html>
     <head>
@@ -16,10 +16,10 @@
         <div>
             <ul>
                 <li><a>Efetuar Empréstimos</a></li>
-                <li><a href="pages/funcionario.jsp">Funcionários</a></li>
-                <li><a href="pages/associado.jsp">Associados</a></li>
+                <li><a href="funcionario.jsp">Funcionários</a></li>
+                <li><a href="associado.jsp">Associados</a></li>
                 <li><a>Publicações</a></li>
-                <li><a href="pages/exemplar.jsp">Exemplares</a></li>
+                <li><a href="exemplar.jsp">Exemplares</a></li>
                 <li><a>Relatórios</a></li>
             </ul>
         </div>
@@ -34,7 +34,7 @@
         %>
         <div>
             <h1>Adicionar:</h1>
-            <form id="form-add" action="/ProjetoBaldochi/AssociadoCRUD">
+            <form id="form-add" action="/biblioteca/AssociadoCRUD">
                 Código:<input type="text" name="codigo"/><br/>
                 Nome:<input type="text" name="nome"/><br/>
                 Endereço:<input type="text" name="endereco"/><br/>
