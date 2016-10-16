@@ -1,6 +1,5 @@
 package biblioteca.associado;
 
-import biblioteca.associado.*;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,9 +23,10 @@ public class AssociadoCRUD extends HttpServlet {
         associado.setNome(request.getParameter("nome") != null ? request.getParameter("nome") : "");
         associado.setSenha(request.getParameter("senha") != null ? request.getParameter("senha") : "");
         associado.setStatus(request.getParameter("status") != null ? request.getParameter("status") : "");
+        associado.setTipo(request.getParameter("tipo") != null ? request.getParameter("tipo") : "");
 
         dao = new AssociadoDAO();
-        if (request.getParameter("tipo") != null && request.getParameter("tipo").equals("cadastro")) {
+        if (request.getParameter("tipo-operacao") != null && request.getParameter("tipo-operacao").equals("cadastro")) {
             if (dao.inserir(associado)) {
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("pages/associado.jsp");
                 //dispatcher.forward(request, response);

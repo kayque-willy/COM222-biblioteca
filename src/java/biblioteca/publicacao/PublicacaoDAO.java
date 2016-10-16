@@ -1,6 +1,5 @@
 package biblioteca.publicacao;
 
-import biblioteca.publicacao.*;
 import biblioteca.dao.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -141,15 +140,28 @@ public class PublicacaoDAO extends DAO {
         }
     }
 
-    public List<Publicacao> filtrar(int codigo, String nome, String email) {
+    public List<Publicacao> filtrar(String isbn, String titulo) {
         try {
             List<Publicacao> publicacaos = new ArrayList<Publicacao>();
             Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Select * from publicacao where codigo = ? and nome ilike ? and email ilike ?" );
-            pstm.setInt(1, codigo);
-            pstm.setString(2, nome);
-            pstm.setString(3, email);
+            PreparedStatement pstm = null;
+            if ((isbn != null && !isbn.isEmpty()) && (titulo == null || titulo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from publicacao where isbn ilike ?");
+                pstm.setString(1, isbn);
+            } else if ((isbn == null || isbn.isEmpty()) && (titulo != null && !titulo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from publicacao where titulo ilike ?");
+                pstm.setString(1, titulo);
+            } else if ((isbn != null && !isbn.isEmpty()) && (titulo != null && !titulo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from publicacao where isbn ilike ? and titulo ilike ?");
+                pstm.setString(1, isbn);
+                pstm.setString(2, titulo);
+            }else if ((isbn == null || isbn.isEmpty()) && (titulo == null || titulo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from publicacao");
+            }
             ResultSet rs = pstm.executeQuery();
             Publicacao publicacao;
             if (rs.next()) {

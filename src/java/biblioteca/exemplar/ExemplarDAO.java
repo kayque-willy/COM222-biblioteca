@@ -69,10 +69,11 @@ public class ExemplarDAO extends DAO {
         try {
             Connection conexao = getConexao();
             PreparedStatement pstm = conexao
-                    .prepareStatement("Insert into	exemplar (numero, publicacao_isbn, preco) values (?,?,?)");
+                    .prepareStatement("Insert into	exemplar (numero, publicacao_isbn, preco, status) values (?,?,?,?)");
             pstm.setInt(1, exemplar.getNumero());
             pstm.setString(2, exemplar.getPublicacao_isbn());
             pstm.setDouble(3, exemplar.getPreco());
+            pstm.setString(4, exemplar.getStatus());
             pstm.execute();
             pstm.close();
             conexao.close();
@@ -96,6 +97,7 @@ public class ExemplarDAO extends DAO {
                 exemplar.setPreco(rs.getDouble("preco"));
                 exemplar.setPublicacao_isbn(rs.getString("publicacao_isbn"));
                 exemplar.setId(rs.getInt("id"));
+                exemplar.setStatus(rs.getString("status"));
                 lista.add(exemplar);
             }
             stm.close();
@@ -106,41 +108,29 @@ public class ExemplarDAO extends DAO {
         return lista;
     }
 
-    public Exemplar consultar(int login, String senha) {
-        Exemplar exemplar;
-        try {
-            exemplar = new Exemplar();
-            Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Select * from exemplar where codigo = ? and senha = ?");
-            pstm.setInt(1, login);
-            pstm.setString(2, senha);
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next()) {
-                exemplar = new Exemplar();
-                exemplar.setNumero(rs.getInt("numero"));
-                exemplar.setPreco(rs.getDouble("preco"));
-                exemplar.setPublicacao_isbn(rs.getString("publicacao_isbn"));
-                exemplar.setId(rs.getInt("id"));
-            }
-            pstm.close();
-            conexao.close();
-            return exemplar;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public List<Exemplar> filtrar(int codigo, String nome, String email) {
+    public List<Exemplar> filtrar(int numero, String isbn) {
         try {
             List<Exemplar> exemplars = new ArrayList<Exemplar>();
             Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Select * from exemplar where codigo = ? and nome ilike ? and email ilike ?");
-            pstm.setInt(1, codigo);
-            pstm.setString(2, nome);
-            pstm.setString(3, email);
+            PreparedStatement pstm = null;
+            if (numero != 0 && (isbn == null || isbn.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from exemplar where numero = ?");
+                pstm.setInt(1, numero);
+            } else if (numero == 0 && (isbn != null && !isbn.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from exemplar where publicacao_isbn ilike ?");
+                pstm.setString(1, isbn);
+            } else if (numero != 0 && (isbn != null && !isbn.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from exemplar where numero = ? and publicacao_isbn ilike ?");
+                pstm.setInt(1, numero);
+                pstm.setString(2, isbn);
+            }else if (numero == 0 && (isbn == null || isbn.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from exemplar");
+            }
+
             ResultSet rs = pstm.executeQuery();
             Exemplar exemplar;
             if (rs.next()) {
@@ -150,6 +140,7 @@ public class ExemplarDAO extends DAO {
                 exemplar.setPreco(rs.getDouble("preco"));
                 exemplar.setPublicacao_isbn(rs.getString("publicacao_isbn"));
                 exemplar.setId(rs.getInt("id"));
+                exemplar.setStatus(rs.getString("status"));
                 exemplars.add(exemplar);
             }
             pstm.close();

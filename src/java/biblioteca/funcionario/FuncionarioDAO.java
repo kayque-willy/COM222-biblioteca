@@ -137,15 +137,29 @@ public class FuncionarioDAO extends DAO {
         }
     }
 
-    public List<Funcionario> filtrar(int codigo, String nome, String email) {
+    public List<Funcionario> filtrar(int codigo, String nome) {
         try {
             List<Funcionario> funcionarios = new ArrayList<Funcionario>();
             Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Select * from funcionario where codigo = ? and nome ilike ? and email ilike ?" );
-            pstm.setInt(1, codigo);
-            pstm.setString(2, nome);
-            pstm.setString(3, email);
+            PreparedStatement pstm = null;
+            if (codigo != 0 && (nome == null || nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from funcionario where codigo = ?");
+                pstm.setInt(1, codigo);
+            } else if (codigo == 0 && (nome != null && !nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from funcionario where nome ilike ?");
+                pstm.setString(1, nome);
+            } else if (codigo != 0 && (nome != null && !nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from funcionario where codigo = ? and nome ilike ?");
+                pstm.setInt(1, codigo);
+                pstm.setString(2, nome);
+            }else if (codigo == 0 && (nome == null || nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from funcionario");
+            }
+            
             ResultSet rs = pstm.executeQuery();
             Funcionario funcionario;
             if (rs.next()) {

@@ -1,3 +1,4 @@
+<%@page import="biblioteca.publicacao.Publicacao"%>
 <%@page import="java.util.List"%>
 <%@page import="biblioteca.exemplar.Exemplar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,18 +27,25 @@
         <jsp:useBean id="exemplarController" class="biblioteca.exemplar.ExemplarController" scope="request" />  
         <%
             List<Exemplar> exemplars;
+            List<Publicacao> publicacoes;
             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                exemplars = exemplarController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-email"));
+                exemplars = exemplarController.filtrar(Integer.valueOf(request.getParameter("filtro-numero")), request.getParameter("filtro-isbn"));
             } else {
                 exemplars = exemplarController.getExemplars();
             }
+            publicacoes = exemplarController.getPublicacoes();
         %>
         <div>
             <h1>Adicionar:</h1>
             <form id="form-add" action="/biblioteca/ExemplarCRUD">
                 Numero:<input type="text" name="numero"/><br/>
                 Preço:<input type="text" name="preco"/><br/>
-                Publicação(ISBN):<input type="text" name="publicacao"/><br/>
+                Publicação(ISBN):<select name="publicacao">
+                    <option value="">Selecione</option>
+                    <% for (Publicacao f : publicacoes) {%>
+                    <option value="<%=f.getIsbn()%>"><%=f.getTitulo()%></option>
+                   <%}%>
+                </select><br/>
                 <input type="hidden" name="tipo" value="cadastro"/><br/>
                 <button type="submmit">Cadastrar</button>
             </form> 
@@ -45,9 +53,8 @@
         <div>
             <h1>Filtro:</h1>
             <form action="exemplar.jsp">
-                Código:<input type="text" name="filtro-codigo"/><br/>
-                Nome:<input type="text" name="filtro-nome"/><br/>
-                E-mail:<input type="text" name="filtro-email"/><br/>
+                Número:<input type="text" name="filtro-numero"/><br/>
+                ISBN:<input type="text" name="filtro-isbn"/><br/>
                 <input type="hidden" name="filtro" value="true"/><br/>
                 <button type="submmit">Filtrar</button>
             </form>
@@ -59,12 +66,14 @@
                     <td>Numero</td>
                     <td>Publicacao</td>
                     <td>Preço</td>
+                    <td>Status</td>
                 </tr>
                 <% for (Exemplar f : exemplars) {%>
                 <tr>
                     <td><%=f.getNumero()%></td>
                     <td><%=f.getPublicacao_isbn()%></td>
                     <td><%=f.getPreco()%></td>
+                    <td><%=f.getStatus()%></td>
                 </tr>
                 <%}%>
             </table>

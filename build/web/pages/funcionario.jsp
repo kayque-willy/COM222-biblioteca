@@ -27,7 +27,7 @@
         <%
             List<Funcionario> funcionarios;
             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                funcionarios = funcionarioController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-email"));
+                funcionarios = funcionarioController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"));
             } else {
                 funcionarios = funcionarioController.getFuncionarios();
             }
@@ -49,7 +49,6 @@
             <form action="funcionario.jsp">
                 Código:<input type="text" name="filtro-codigo"/><br/>
                 Nome:<input type="text" name="filtro-nome"/><br/>
-                E-mail:<input type="text" name="filtro-email"/><br/>
                 <input type="hidden" name="filtro" value="true"/><br/>
                 <button type="submmit">Filtrar</button>
             </form>

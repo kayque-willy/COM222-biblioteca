@@ -1,3 +1,4 @@
+<%@page import="biblioteca.funcionario.Funcionario"%>
 <%@page import="java.util.List"%>
 <%@page import="biblioteca.publicacao.Publicacao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,11 +27,13 @@
         <jsp:useBean id="publicacaoController" class="biblioteca.publicacao.PublicacaoController" scope="request" />  
         <%
             List<Publicacao> publicacaos;
+            List<Funcionario> funcionarios;
             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                publicacaos = publicacaoController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-email"));
+                publicacaos = publicacaoController.filtrar(request.getParameter("filtro-isbn"), request.getParameter("filtro-titulo"));
             } else {
                 publicacaos = publicacaoController.getPublicacaos();
             }
+            funcionarios = publicacaoController.getFuncionarios();
         %>
         <div>
             <h1>Adicionar:</h1>
@@ -40,7 +43,13 @@
                 Autor:<input type="text" name="autor"/><br/>
                 Editora:<input type="text" name="editora"/><br/>
                 Ano:<input type="text" name="ano"/><br/>
-                Funcionário:<input type="text" name="funcionario"/><br/>
+                Funcionário:
+                <select name="funcionario">
+                    <option value="">Selecione</option>
+                    <% for (Funcionario f : funcionarios) {%>
+                    <option value="<%=f.getCodigo()%>"><%=f.getNome() %></option>
+                   <%}%>
+                </select><br/>
                 <input type="hidden" name="tipo" value="cadastro"/><br/>
                 <button type="submmit">Cadastrar</button>
             </form> 
@@ -48,9 +57,8 @@
         <div>
             <h1>Filtro:</h1>
             <form action="publicacao.jsp">
-                Código:<input type="text" name="filtro-codigo"/><br/>
-                Nome:<input type="text" name="filtro-nome"/><br/>
-                E-mail:<input type="text" name="filtro-email"/><br/>
+                ISBN:<input type="text" name="filtro-isbn"/><br/>
+                Título:<input type="text" name="filtro-titulo"/><br/>
                 <input type="hidden" name="filtro" value="true"/><br/>
                 <button type="submmit">Filtrar</button>
             </form>

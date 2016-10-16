@@ -27,7 +27,7 @@
         <%
             List<Associado> associados;
             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                associados = associadoController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-email"));
+                associados = associadoController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-tipo"));
             } else {
                 associados = associadoController.getAssociados();
             }
@@ -36,11 +36,17 @@
             <h1>Adicionar:</h1>
             <form id="form-add" action="/biblioteca/AssociadoCRUD">
                 Código:<input type="text" name="codigo"/><br/>
+                Tipo:<select name="tipo">
+                    <option value="">Selecione</option>
+                    <option value="Grad">Grad</option>
+                    <option value="Pos-Grad">Pos-Grad</option>
+                    <option value="Prof">Prof</option>
+                </select><br/>
                 Nome:<input type="text" name="nome"/><br/>
                 Endereço:<input type="text" name="endereco"/><br/>
                 E-mail:<input type="text" name="email"/><br/>
                 Senha:<input type="text" name="senha"/><br/>
-                <input type="hidden" name="tipo" value="cadastro"/><br/>
+                <input type="hidden" name="tipo-operacao" value="cadastro"/><br/>
                 <button type="submmit">Cadastrar</button>
             </form> 
         </div>
@@ -49,7 +55,12 @@
             <form action="associado.jsp">
                 Código:<input type="text" name="filtro-codigo"/><br/>
                 Nome:<input type="text" name="filtro-nome"/><br/>
-                E-mail:<input type="text" name="filtro-email"/><br/>
+                Tipo:<select name="filtro-tipo">
+                    <option value="">Selecione</option>
+                    <option value="Grad">Grad</option>
+                    <option value="Pos-Grad">Pos-Grad</option>
+                    <option value="Prof">Prof</option>
+                </select><br/>
                 <input type="hidden" name="filtro" value="true"/><br/>
                 <button type="submmit">Filtrar</button>
             </form>
@@ -60,6 +71,7 @@
                 <tr>
                     <td>Codigo</td>
                     <td>Nome</td>
+                    <td>Tipo</td>
                     <td>E-mail</td>
                     <td>Endereço</td>
                 </tr>
@@ -67,6 +79,7 @@
                 <tr>
                     <td><%=f.getCodigo()%></td>
                     <td><%=f.getNome()%></td>
+                    <td><%=f.getTipo()%></td>
                     <td><%=f.getEmail()%></td>
                     <td><%=f.getEndereco()%></td>
                 </tr>

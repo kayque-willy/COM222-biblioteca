@@ -10,6 +10,7 @@ public class Associado {
     private String email;
     private String senha;
     private String status;
+    private String tipo;
 
     /*---------- Métodos ----------*/
     public void associado() {
@@ -17,7 +18,6 @@ public class Associado {
     }
 
     /*---------- Get e Set ----------*/
-    
     public int getId() {
         return id;
     }
@@ -72,6 +72,14 @@ public class Associado {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }

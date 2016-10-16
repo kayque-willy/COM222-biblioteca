@@ -1,6 +1,5 @@
 package biblioteca.associado;
 
-import biblioteca.associado.*;
 import java.util.List;
 
 public class AssociadoController {
@@ -17,8 +16,8 @@ public class AssociadoController {
         this.associados = dao.listar();
     }
 
-    public List<Associado> filtrar(int codigo, String nome, String email) {
-        return dao.filtrar(codigo, nome, email);
+    public List<Associado> filtrar(int codigo, String nome, String tipo) {
+        return dao.filtrar(codigo, nome, tipo);
     }
     
     /*--------- Get e Set ---------*/

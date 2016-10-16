@@ -29,6 +29,8 @@ public class Login extends HttpServlet {
             funcionario = dao.consultar(login, senha);
             if (funcionario != null) {
                 request.getSession().setAttribute("usuario", funcionario.getNome());
+                request.getSession().setAttribute("tipo", "funcionario");
+                request.getSession().setAttribute("codigo", funcionario.getCodigo());
                 // redireciona para página principal
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
                 //dispatcher.forward(request, response);

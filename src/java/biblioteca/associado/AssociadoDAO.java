@@ -1,6 +1,5 @@
 package biblioteca.associado;
 
-import biblioteca.associado.*;
 import biblioteca.dao.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,13 +69,14 @@ public class AssociadoDAO extends DAO {
         try {
             Connection conexao = getConexao();
             PreparedStatement pstm = conexao
-                    .prepareStatement("Insert into	associado (codigo, email, senha, nome, endereco, status) values (?,?,?,?,?,?)");
+                    .prepareStatement("Insert into	associado (codigo, email, senha, nome, endereco, status, tipo) values (?,?,?,?,?,?,?)");
             pstm.setInt(1, associado.getCodigo());
             pstm.setString(2, associado.getEmail());
             pstm.setString(3, associado.getSenha());
             pstm.setString(4, associado.getNome());
             pstm.setString(5, associado.getEndereco());
             pstm.setString(6, associado.getStatus());
+            pstm.setString(7, associado.getTipo());
             pstm.execute();
             pstm.close();
             conexao.close();
@@ -103,6 +103,7 @@ public class AssociadoDAO extends DAO {
                 associado.setId(rs.getInt("id"));
                 associado.setSenha(rs.getString("senha"));
                 associado.setStatus(rs.getString("status"));
+                associado.setTipo(rs.getString("tipo"));
                 lista.add(associado);
             }
             stm.close();
@@ -131,6 +132,7 @@ public class AssociadoDAO extends DAO {
                 associado.setId(rs.getInt("id"));
                 associado.setSenha(rs.getString("senha"));
                 associado.setStatus(rs.getString("status"));
+                associado.setTipo(rs.getString("tipo"));
             }
             pstm.close();
             conexao.close();
@@ -141,15 +143,48 @@ public class AssociadoDAO extends DAO {
         }
     }
 
-    public List<Associado> filtrar(int codigo, String nome, String email) {
+    public List<Associado> filtrar(int codigo, String nome, String tipo) {
         try {
             List<Associado> associados = new ArrayList<Associado>();
             Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Select * from associado where codigo = ? and nome ilike ? and email ilike ?" );
-            pstm.setInt(1, codigo);
-            pstm.setString(2, nome);
-            pstm.setString(3, email);
+            PreparedStatement pstm = null;
+            if (codigo != 0 && (nome == null || nome.isEmpty()) && (tipo == null || tipo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where codigo = ?");
+                pstm.setInt(1, codigo);
+            } else if (codigo == 0 && (nome != null && !nome.isEmpty()) && (tipo == null || tipo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where nome ilike ?");
+                pstm.setString(1, nome);
+            } else if (codigo != 0 && (tipo == null || tipo.isEmpty()) && (nome == null || nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where tipo ilike ?");
+                pstm.setString(1, tipo);
+            } else if (codigo != 0 && (nome != null && !nome.isEmpty()) && (tipo == null || tipo.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where codigo = ? and nome ilike ?");
+                pstm.setInt(1, codigo);
+                pstm.setString(2, nome);
+            } else if (codigo != 0 && (tipo != null && !tipo.isEmpty()) && (nome == null || nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where codigo = ? and tipo ilike ?");
+                pstm.setInt(1, codigo);
+                pstm.setString(2, tipo);
+            } else if (codigo == 0 && (tipo != null && !tipo.isEmpty()) && (nome != null && !nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where nome ilike ? and tipo ilike ?");
+                pstm.setString(1, nome);
+                pstm.setString(2, tipo);
+            } else if (codigo != 0 && (tipo != null && !tipo.isEmpty()) && (nome != null && !nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado where nome ilike ? and tipo ilike ? and codigo = ?");
+                pstm.setString(1, nome);
+                pstm.setString(2, tipo);
+                pstm.setInt(3, codigo);
+            } else if (codigo == 0 && (nome == null || nome.isEmpty())) {
+                pstm = conexao
+                        .prepareStatement("Select * from associado");
+            }
             ResultSet rs = pstm.executeQuery();
             Associado associado;
             if (rs.next()) {
@@ -161,6 +196,7 @@ public class AssociadoDAO extends DAO {
                 associado.setId(rs.getInt("id"));
                 associado.setSenha(rs.getString("senha"));
                 associado.setStatus(rs.getString("status"));
+                associado.setTipo(rs.getString("tipo"));
                 associados.add(associado);
             }
             pstm.close();

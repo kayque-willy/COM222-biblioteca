@@ -16,8 +16,8 @@ public class FuncionarioController {
         this.funcionarios = dao.listar();
     }
 
-    public List<Funcionario> filtrar(int codigo, String nome, String email) {
-        return dao.filtrar(codigo, nome, email);
+    public List<Funcionario> filtrar(int codigo, String nome) {
+        return dao.filtrar(codigo, nome);
     }
     
     /*--------- Get e Set ---------*/

@@ -7,6 +7,7 @@ public class Exemplar {
     private int numero;
     private String publicacao_isbn;
     private Double preco;
+    private String status;
 
     /*---------- Métodos ----------*/
     public void exemplar() {
@@ -44,6 +45,14 @@ public class Exemplar {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }
