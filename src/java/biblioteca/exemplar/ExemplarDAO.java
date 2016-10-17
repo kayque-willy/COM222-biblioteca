@@ -68,10 +68,9 @@ public class ExemplarDAO extends DAO {
     public boolean inserir(Exemplar exemplar) {
         try {
             Connection conexao = getConexao();
-            PreparedStatement pstm = conexao
-                    .prepareStatement("Insert into	exemplar (numero, publicacao_isbn, preco, status) values (?,?,?,?)");
+            PreparedStatement pstm = conexao.prepareStatement("Insert into exemplar (numero, publicacao_isbn, preco, status) values (?,?,?,?)");
             pstm.setInt(1, exemplar.getNumero());
-            pstm.setString(2, exemplar.getPublicacao_isbn());
+            pstm.setInt(2,Integer.parseInt(exemplar.getPublicacao_isbn()));
             pstm.setDouble(3, exemplar.getPreco());
             pstm.setString(4, exemplar.getStatus());
             pstm.execute();

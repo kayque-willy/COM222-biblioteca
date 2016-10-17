@@ -7,84 +7,104 @@
     }%>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Associados</title>
-    </head>
-    <body>
-        <h1>Bem Vindo <%=request.getSession().getAttribute("usuario")%>!</h1>
-
-        <div>
-            <ul>
-                <li><a>Efetuar Empréstimos</a></li>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>COM222 - Biblioteca</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.jsp">Inicio</a></li>
+                <li class="active"><a href="emprestimo.jsp">Efetuar empréstimos</a></li>
                 <li><a href="funcionario.jsp">Funcionários</a></li>
                 <li><a href="associado.jsp">Associados</a></li>
                 <li><a href="publicacao.jsp">Publicações</a></li>
                 <li><a href="exemplar.jsp">Exemplares</a></li>
-                <li><a>Relatórios</a></li>
-            </ul>
+                <li><a href="relatorio.jsp">Relatório</a></li>
+          </ul>
         </div>
-        <jsp:useBean id="associadoController" class="biblioteca.associado.AssociadoController" scope="request" />  
-        <%
-            List<Associado> associados;
-            if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                associados = associadoController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-tipo"));
-            } else {
-                associados = associadoController.getAssociados();
-            }
-        %>
-        <div>
-            <h1>Adicionar:</h1>
-            <form id="form-add" action="/ProjetoBaldochi/AssociadoCRUD">
-                Código:<input type="text" name="codigo"/><br/>
-                Tipo:<select name="tipo">
-                    <option value="">Selecione</option>
-                    <option value="Grad">Grad</option>
-                    <option value="Pos-Grad">Pos-Grad</option>
-                    <option value="Prof">Prof</option>
-                </select><br/>
-                Nome:<input type="text" name="nome"/><br/>
-                Endereço:<input type="text" name="endereco"/><br/>
-                E-mail:<input type="text" name="email"/><br/>
-                Senha:<input type="text" name="senha"/><br/>
-                <input type="hidden" name="tipo" value="cadastro"/><br/>
-                <button type="submmit">Cadastrar</button>
-            </form> 
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+                <h1 class="text-center">Bem Vindo <%=request.getSession().getAttribute("usuario")%>!</h1>
+          </div>
         </div>
-        <div>
-            <h1>Filtro:</h1>
-            <form action="associado.jsp">
-                Código:<input type="text" name="filtro-codigo"/><br/>
-                Nome:<input type="text" name="filtro-nome"/><br/>
-                Tipo:<select name="filtro-tipo">
-                    <option value="">Selecione</option>
-                    <option value="Grad">Grad</option>
-                    <option value="Pos-Grad">Pos-Grad</option>
-                    <option value="Prof">Prof</option>
-                </select><br/>
-                <input type="hidden" name="filtro" value="true"/><br/>
-                <button type="submmit">Filtrar</button>
-            </form>
-        </div>
-        <div>
-            <h1>Associados:</h1>
-            <table>
+      </div>
+    </div><div class="section"><div class="container"><div class="row"><div class="col-md-3"><div class="col-md-2">
+            <div class="section">
+              <div class="container">
+                <div class="row"><div class="col-md-12"><a class="btn btn-primary">Devolução</a></div></div><div class="row">
+                  <div class="col-md-2">
+                    <h3 class="text-center">Realizar empréstimo</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <form role="form">
+                      <div class="form-group">
+                        <label class="control-label" for="exampleInputEmail1">Exemplar</label>
+                        <input class="form-control" type="text" placeholder="Número do exemplar">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Publicação</label>
+                        <input class="form-control" type="text" placeholder="ISBN da publicação">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Data do empréstimo</label>
+                        <input class="form-control" type="text" placeholder="Data">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Código do associado</label>
+                        <input class="form-control" type="text" placeholder="Código">
+                      </div>
+                      <button type="submit" class="btn btn-success pull-left">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div></div><div class="col-md-7"><table class="table">
+              <thead>
                 <tr>
-                    <td>Codigo</td>
-                    <td>Nome</td>
-                    <td>Tipo</td>
-                    <td>E-mail</td>
-                    <td>Endereço</td>
+                  <th>Titulo</th>
+                  <th>Exemplar</th>
+                  <th>ISBN</th><th>Status</th>
                 </tr>
-                <% for (Associado f : associados) {%>
+              </thead>
+              <tbody>
                 <tr>
-                    <td><%=f.getCodigo()%></td>
-                    <td><%=f.getNome()%></td>
-                    <td><%=f.getTipo()%></td>
-                    <td><%=f.getEmail()%></td>
-                    <td><%=f.getEndereco()%></td>
+                  <td>gg</td>
+                  <td>Mark</td>
+                  <td>Otto</td><td class="success">Otto</td></tr>
+                <tr>
+                  <td>ggg</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td><td class="danger">Thornton</td>
                 </tr>
-                <%}%>
-            </table>
-        </div>
-    </body>
-</html>
+                <tr>
+                  <td>gggg</td>
+                  <td>Larry</td>
+                  <td>the Bird</td><td class="success">the Bird</td>
+                </tr>
+              </tbody>
+            </table></div><div class="col-md-2"><form role="form"><div class="form-group"><label class="control-label" for="exampleInputEmail1">Exemplar</label><input class="form-control" id="exampleInputEmail1" placeholder="Exemplar" type="text"></div><div class="form-group"><label class="control-label" for="exampleInputPassword1">Publicação</label><input class="form-control" id="exampleInputPassword1" placeholder="Password" type="password"></div><div class="form-group"><label class="control-label" for="exampleInputPassword1">Código</label><input class="form-control" id="exampleInputPassword1" placeholder="Código do associado" type="password"></div><button type="submit" class="btn btn-default">Filtrar</button></form></div></div></div></div>
+  
+
+</body></html>
