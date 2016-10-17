@@ -17,6 +17,7 @@ public class PublicacaoController {
     public PublicacaoController() {
         this.publicacao = new Publicacao();
         this.dao = new PublicacaoDAO();
+        this.funcionariodao = new FuncionarioDAO();
         this.publicacaos = dao.listar();
         this.funcionarios = funcionariodao.listar();
     }

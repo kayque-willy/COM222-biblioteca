@@ -17,6 +17,7 @@ public class ExemplarController {
     public ExemplarController() {
         this.exemplar = new Exemplar();
         this.dao = new ExemplarDAO();
+        this.publicacaodao = new PublicacaoDAO();
         this.exemplars = dao.listar();
         this.publicacoes = publicacaodao.listar();
     }

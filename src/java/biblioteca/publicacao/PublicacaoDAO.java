@@ -1,6 +1,7 @@
 package biblioteca.publicacao;
 
 import biblioteca.dao.DAO;
+import biblioteca.funcionario.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,6 +79,7 @@ public class PublicacaoDAO extends DAO {
             pstm.setInt(6, publicacao.getFuncionario_codigo());
             pstm.execute();
             pstm.close();
+           System.out.println(pstm);
             conexao.close();
             return true;
         } catch (Exception e) {
@@ -97,7 +99,7 @@ public class PublicacaoDAO extends DAO {
                 publicacao = new Publicacao();
                 publicacao.setAno(rs.getInt("ano"));
                 publicacao.setAutor(rs.getString("autor"));
-                publicacao.setEditora(rs.getString("editor"));
+                publicacao.setEditora(rs.getString("editora"));
                 publicacao.setTitulo(rs.getString("titulo"));
                 publicacao.setIsbn(rs.getInt("isbn"));
                 publicacao.setFuncionario_codigo(rs.getInt("funcionario_codigo"));
@@ -142,7 +144,7 @@ public class PublicacaoDAO extends DAO {
 
     public List<Publicacao> filtrar(String isbn, String titulo) {
         try {
-            List<Publicacao> publicacaos = new ArrayList<Publicacao>();
+            List<Publicacao> publicacaos = new ArrayList<>();
             Connection conexao = getConexao();
             PreparedStatement pstm = null;
             if ((isbn != null && !isbn.isEmpty()) && (titulo == null || titulo.isEmpty())) {

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Login do funcionário</title>
     </head>
     <body>
         <form action="/biblioteca/Login">

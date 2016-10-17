@@ -18,7 +18,7 @@
             <ul>
                 <li><a>Efetuar Empréstimos</a></li>
                 <li><a href="funcionario.jsp">Funcionários</a></li>
-                <li><a href="associado.jsp">Publicacaos</a></li>
+                <li><a href="associado.jsp">Associados</a></li>
                 <li><a href="publicacao.jsp">Publicações</a></li>
                 <li><a href="exemplar.jsp">Exemplares</a></li>
                 <li><a>Relatórios</a></li>
@@ -51,7 +51,7 @@
                    <%}%>
                 </select><br/>
                 <input type="hidden" name="tipo" value="cadastro"/><br/>
-                <button type="submmit">Cadastrar</button>
+                <button type="submit"> Cadastrar</button>
             </form> 
         </div>
         <div>
@@ -60,7 +60,7 @@
                 ISBN:<input type="text" name="filtro-isbn"/><br/>
                 Título:<input type="text" name="filtro-titulo"/><br/>
                 <input type="hidden" name="filtro" value="true"/><br/>
-                <button type="submmit">Filtrar</button>
+                <button type="submit"> Filtrar</button>
             </form>
         </div>
         <div>
