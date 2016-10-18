@@ -5,7 +5,7 @@ public class Exemplar {
     /*---------- Atributos ----------*/
     private int id;
     private int numero;
-    private String publicacao_isbn;
+    private int publicacao_isbn;
     private Double preco;
     private String status;
 
@@ -31,11 +31,11 @@ public class Exemplar {
         this.numero = numero;
     }
 
-    public String getPublicacao_isbn() {
+    public int getPublicacao_isbn() {
         return publicacao_isbn;
     }
 
-    public void setPublicacao_isbn(String publicacao_isbn) {
+    public void setPublicacao_isbn(int publicacao_isbn) {
         this.publicacao_isbn = publicacao_isbn;
     }
 
@@ -54,5 +54,5 @@ public class Exemplar {
     public void setStatus(String status) {
         this.status = status;
     }
-
+    
 }

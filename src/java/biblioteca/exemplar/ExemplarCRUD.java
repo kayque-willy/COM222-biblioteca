@@ -19,7 +19,7 @@ public class ExemplarCRUD extends HttpServlet {
         exemplar = new Exemplar();
         exemplar.setNumero(request.getParameter("numero") != null ? Integer.valueOf(request.getParameter("numero")) : 0);
         exemplar.setPreco(request.getParameter("preco") != null ? Double.valueOf(request.getParameter("preco")) : 0.0D);
-        exemplar.setPublicacao_isbn(request.getParameter("publicacao") != null ? request.getParameter("publicacao") : "");
+        exemplar.setPublicacao_isbn(request.getParameter("publicacao") != null ? Integer.valueOf(request.getParameter("publicacao")) : 0);
         exemplar.setStatus(request.getParameter("status") != null ? request.getParameter("status") : "");
         exemplar.setStatus("Livre");
         dao = new ExemplarDAO();

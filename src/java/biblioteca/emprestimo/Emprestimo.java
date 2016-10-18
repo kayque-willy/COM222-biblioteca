@@ -8,6 +8,7 @@ public class Emprestimo {
     private int id;
     private int exemplar_numero;
     private int associado_codigo;
+    private int publicacao_ISBN;
     private Date data_emprestimo;
     private Date data_devolucao;
     private String status;
@@ -73,6 +74,14 @@ public class Emprestimo {
 
     public void setCodigo(Double codigo) {
         this.codigo = codigo;
+    }
+    
+     public int getPublicacao_ISBN() {
+        return publicacao_ISBN;
+    }
+
+    public void setPublicacao_ISBN(int publicacao_ISBN) {
+        this.publicacao_ISBN = publicacao_ISBN;
     }
 
 }

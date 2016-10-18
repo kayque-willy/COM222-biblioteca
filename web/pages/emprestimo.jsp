@@ -1,3 +1,7 @@
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="biblioteca.emprestimo.Emprestimo"%>
+<%@page import="biblioteca.exemplar.Exemplar"%>
 <%@page import="java.util.List"%>
 <%@page import="biblioteca.associado.Associado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,77 +42,169 @@
                         <li><a href="publicacao.jsp">Publicações</a></li>
                         <li><a href="exemplar.jsp">Exemplares</a></li>
                         <li><a href="relatorio.jsp">Relatório</a></li>
-                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        
         <div class="section">
+           <h1 class="text-center">Realizar empréstimos</h1>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <h1 class="text-center">Bem Vindo <%=request.getSession().getAttribute("usuario")%>!</h1>
-                    </div>
-                </div>
-            </div>
-        </div><div class="section"><div class="container"><div class="row"><div class="col-md-3"><div class="col-md-2">
+                    <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="section">
                                 <div class="container">
-                                    <div class="row"><div class="col-md-12"><a class="btn btn-primary">Devolução</a></div></div><div class="row">
+                                    
+                                    <div class="row">
                                         <div class="col-md-2">
                                             <h3 class="text-center">Realizar empréstimo</h3>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <form role="form">
+                                            <form role="form" action="/biblioteca/EmprestimoCRUD">
+                                                <input type="hidden" name="tipo-operacao" value="cadastrar"/><br/>
                                                 <div class="form-group">
                                                     <label class="control-label" for="exampleInputEmail1">Exemplar</label>
-                                                    <input class="form-control" type="text" placeholder="Número do exemplar">
+                                                    <input class="form-control" name="numero" type="text" placeholder="Número do exemplar">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Publicação</label>
-                                                    <input class="form-control" type="text" placeholder="ISBN da publicação">
+                                                    <input class="form-control" name="isbn" type="text" placeholder="ISBN da publicação">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Data do empréstimo</label>
-                                                    <input class="form-control" type="text" placeholder="Data">
+                                                    <input class="form-control" name="data_emprestimo" type="date">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Código do associado</label>
-                                                    <input class="form-control" type="text" placeholder="Código">
+                                                    <input class="form-control" name="codigo_associado" type="text" placeholder="Código">
                                                 </div>
-                                                <button type="submit" class="btn btn-success pull-left">Submit</button>
+                                                <button type="submit" class="btn btn-success pull-left">Emprestar</button>
+                                            </form>
+                                            <br>
+                                            <hr>
+                                            <h3 class="text-center">Devolver empréstimo</h3>
+                                            <form role="form" action="/biblioteca/EmprestimoCRUD">
+                                                <input type="hidden" name="tipo-operacao" value="atualizar"/><br/>
+                                                <br>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="exampleInputEmail1">ID do emprestimo</label>
+                                                    <input class="form-control" name="numero" type="text" placeholder="Numero do emprestimo">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Data da devolução</label>
+                                                    <input class="form-control" name="data_devolucao" type="date">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary pull-left">Devolver</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div></div><div class="col-md-7"><table class="table">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <table class="table">
+                            <h3 class="text-center">Exemplares disponíveis para empréstimo</h3>
                             <thead>
                                 <tr>
-                                    <th>Titulo</th>
-                                    <th>Exemplar</th>
-                                    <th>ISBN</th><th>Status</th>
+                                    <th>Numero</th>
+                                    <th>ISBN</th>
+                                    <th>Preço</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <jsp:useBean id="exemplarController" class="biblioteca.exemplar.ExemplarController" scope="request" />  
+                                <%
+                                    List<Exemplar> exemplares;
+                                    if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
+                                        exemplares = exemplarController.filtrar(Integer.valueOf(request.getParameter("filtro-exemplar")), request.getParameter("filtro-isbn"));
+                                    } else {
+                                        exemplares = exemplarController.getExemplars();
+                                    }
+                                %>
+                                <% for (Exemplar f : exemplares) {%>
                                 <tr>
-                                    <td>gg</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td><td class="success">Otto</td></tr>
-                                <tr>
-                                    <td>ggg</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td><td class="danger">Thornton</td>
+                                    <td><%=f.getNumero()%></td>
+                                    <td><%=f.getPublicacao_isbn()%></td>
+                                    <td><%=NumberFormat.getCurrencyInstance().format(f.getPreco())%></td>
+                                    <td
+                                        <%if(f.getStatus().equals("Livre")){%>
+                                            class="success"
+                                        <%}else{%> 
+                                            class="danger"
+                                         <%}%>>
+                                        <%=f.getStatus()%>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>gggg</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td><td class="success">the Bird</td>
-                                </tr>
+                                <%}%>
                             </tbody>
-                        </table></div><div class="col-md-2"><form role="form"><div class="form-group"><label class="control-label" for="exampleInputEmail1">Exemplar</label><input class="form-control" id="exampleInputEmail1" placeholder="Exemplar" type="text"></div><div class="form-group"><label class="control-label" for="exampleInputPassword1">Publicação</label><input class="form-control" id="exampleInputPassword1" placeholder="Password" type="password"></div><div class="form-group"><label class="control-label" for="exampleInputPassword1">Código</label><input class="form-control" id="exampleInputPassword1" placeholder="Código do associado" type="password"></div><button type="submit" class="btn btn-default">Filtrar</button></form></div></div></div></div>
+                        </table>
+                        <hr>
+                        <table class="table">
+                            <h3 class="text-center">Histórico de empréstimos</h3>
+                            <thead>
+                                <tr>
+                                    <th>ID do empréstimo</th>
+                                    <th>ISBN</th>
+                                    <th>Exemplar</th>
+                                    <th>Data de empréstimo</th>
+                                    <th>Data de devolução</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <jsp:useBean id="emprestimoController" class="biblioteca.emprestimo.EmprestimoController" scope="request" />  
+                                <%
+                                    List<Emprestimo> emprestimos;
+                                    emprestimos = emprestimoController.getEmprestimos();
+                                    SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+                               %>
+                                <% for (Emprestimo f : emprestimos) {%>
+                                <tr>
+                                    <td><%=f.getId()%></td>
+                                    <td><%=f.getPublicacao_ISBN()%></td>
+                                    <td><%=f.getExemplar_numero()%></td>
+                                    <td><%=data.format(f.getData_emprestimo())%></td>
+                                    <%if(f.getData_devolucao()!=null){%>
+                                        <td><%=data.format(f.getData_devolucao())%></td>
+                                    <%}else{%>
+                                        <td>-</td>
+                                    <%}%>
+                                    <td
+                                         <%if(f.getStatus().equals("Devolvido")){%>
+                                            class="success"
+                                        <%}else{%> 
+                                            class="danger"
+                                         <%}%>>
+                                        <%=f.getStatus()%>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
 
-
-    </body></html>
+                    </div>
+                    <div class="col-md-2">
+                        <form role="form" action="emprestimo.jsp">
+                            <input type="hidden" name="filtro" value="true"/><br/>
+                            <div class="form-group">
+                                <label class="control-label" for="exampleInputEmail1">Exemplar</label>
+                                <input name="filtro-exemplar" class="form-control" id="exampleInputEmail1" placeholder="Número do exemplar" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="exampleInputPassword1">Publicação</label>
+                                <input name="filtro-isbn" class="form-control" id="exampleInputPassword1" placeholder="ISBN da publicação" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-default">Filtrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" style="height: 140px; bottom: 0; background-image: url('../resources/image/rodape.jpg');"/>
+    </body>
+</html>
