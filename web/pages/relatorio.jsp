@@ -1,5 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<% if (request.getSession().getAttribute("usuario") == null) {
+        response.sendRedirect("/biblioteca/login.jsp");
+    }
+    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
+        response.sendRedirect("/biblioteca/login.jsp");
+    }%>
 <html>
     <head>
         <meta charset="utf-8">
@@ -10,7 +16,7 @@
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-<div class="navbar navbar-default navbar-static-top">
+        <div class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -30,42 +36,43 @@
                         <li><a href="publicacao.jsp">Publicações</a></li>
                         <li><a href="exemplar.jsp">Exemplares</a></li>
                         <li class="active"><a href="relatorio.jsp">Relatório</a></li>
+                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
         </div><div class="col-md-12">
-                        <h2 class="text-center">Empréstimos em atraso</h2>
-                    </div><div class="col-md-12">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Codigo do empréstimo</th>
-                                    <th>ISBN</th>
-                                    <th>Exemplar</th>
-                                    <th>Código do associado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Otto</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Thornton</td>     
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>the Bird</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <h2 class="text-center">Empréstimos em atraso</h2>
+        </div><div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo do empréstimo</th>
+                        <th>ISBN</th>
+                        <th>Exemplar</th>
+                        <th>Código do associado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>Thornton</td>     
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>the Bird</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

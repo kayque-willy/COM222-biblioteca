@@ -1,7 +1,7 @@
 package biblioteca.servlet;
 
-import biblioteca.associado.Associado;
-import biblioteca.associado.AssociadoDAO;
+import biblioteca.funcionario.Funcionario;
+import biblioteca.funcionario.FuncionarioDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Login extends HttpServlet {
+public class LoginAdmin extends HttpServlet {
 
     /*--------- Atributos ---------*/
-    private Associado associado;
-    private AssociadoDAO dao;
+    private Funcionario funcionario;
+    private FuncionarioDAO dao;
     private int login;
     private String senha;
 
@@ -22,24 +22,24 @@ public class Login extends HttpServlet {
         login = Integer.valueOf(request.getParameter("login"));
         senha = request.getParameter("senha");
 
-        associado = new Associado();
-        dao = new AssociadoDAO();
+        funcionario = new Funcionario();
+        dao = new FuncionarioDAO();
 
         if (login != 0 && senha != null) {
-            associado = dao.consultar(login, senha);
-            if (associado != null) {
-                request.getSession().setAttribute("usuario", associado.getNome());
-                request.getSession().setAttribute("tipo", "associado");
-                request.getSession().setAttribute("codigo", associado.getCodigo());
+            funcionario = dao.consultar(login, senha);
+            if (funcionario != null) {
+                request.getSession().setAttribute("usuario", funcionario.getNome());
+                request.getSession().setAttribute("tipo", "funcionario");
+                request.getSession().setAttribute("codigo", funcionario.getCodigo());
                 // redireciona para página principal
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
                 //dispatcher.forward(request, response);
-                response.sendRedirect("/biblioteca/pages/indexAssociado.jsp");
+                response.sendRedirect("/biblioteca/pages/index.jsp");
             } else {
                 // redireciona para página de login com erro
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/loginErro.jsp");
                 //dispatcher.forward(request, response);
-                response.sendRedirect("/loginErro.jsp");
+                response.sendRedirect("/loginErroAdmin.jsp");
             }
         }
     }

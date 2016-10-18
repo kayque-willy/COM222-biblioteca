@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
         response.sendRedirect("/biblioteca/login.jsp");
+    }
+    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
+        response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html>
     <head>
@@ -35,6 +38,7 @@
                         <li><a href="publicacao.jsp">Publicações</a></li>
                         <li class="active"><a href="exemplar.jsp">Exemplares</a></li>
                         <li><a href="relatorio.jsp">Relatório</a></li>
+                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -72,16 +76,16 @@
                                                 <label class="control-label">Preço</label>
                                                 <input class="form-control" type="text" placeholder="preço" name="preco">
                                             </div>
-                                        <div class="form-group">
-                                            <label class="control-label">ISBN da publicação</label>
-                                            <select name="publicacao" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <% for (Publicacao f : publicacoes) {%>
-                                                <option value="<%=f.getIsbn()%>"><%=f.getIsbn()%></option>
-                                               <%}%>
-                                            </select><br/>
-                                            <input type="hidden" name="tipo" value="cadastro"/><br/>
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="control-label">ISBN da publicação</label>
+                                                <select name="publicacao" class="form-control">
+                                                    <option value="">Selecione</option>
+                                                    <% for (Publicacao f : publicacoes) {%>
+                                                    <option value="<%=f.getIsbn()%>"><%=f.getIsbn()%></option>
+                                                    <%}%>
+                                                </select><br/>
+                                                <input type="hidden" name="tipo" value="cadastro"/><br/>
+                                            </div>
                                             <button type="submit" class="btn btn-success pull-left">Cadastrar</button></form>
                                     </div>
                                 </div>
@@ -99,7 +103,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <% for (Exemplar f : exemplars) {%>
+                                <% for (Exemplar f : exemplars) {%>
                                 <tr>
                                     <td><%=f.getNumero()%></td>
                                     <td><%=f.getPublicacao_isbn()%></td>
@@ -127,6 +131,6 @@
                 </div>
             </div>
         </div>
-    
-
-</body></html>
+        <div class="section" style="height: 140px; bottom: 0; background-image: url('../resources/image/rodape.jpg');"/>
+    </body>
+</html>

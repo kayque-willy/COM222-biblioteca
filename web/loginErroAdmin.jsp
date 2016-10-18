@@ -6,7 +6,7 @@
     if (request.getSession().getAttribute("usuario") != null && request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
         response.sendRedirect("/biblioteca/pages/indexAssociado.jsp");
     }%>
-    <html style="height: 100%">
+<html style="height: 100%">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="/biblioteca/loginAdmin.jsp">Login do Funcionário</a></li>
+                        <li class="active"><a href="/biblioteca/login.jsp">Login Funcionário</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,8 +39,11 @@
         <div class="section" style=" width: 100%;height: 100%; background-image: url('resources/image/login.jpg'); background-size: 100%">
             <div class="container" style="background-color: transparent;"> 
                 <div class="row"> 
+                    <div class="alert" style="color: red;">
+                        Usuário ou senha inválidos!
+                    </div>
                     <div class="col-md-12"> 
-                        <h1 class="text-center">Login do Associado</h1> 
+                        <h1 class="text-center">Login do funcionário</h1> 
                     </div>
                 </div>
                 <div class="row"> 
@@ -48,14 +51,14 @@
                     </div>
                     <form role="form" class="text-center" action="/biblioteca/Login">
                         <div class="form-group">
-                            <label class="control-label" for="exampleInputPassword1"></label>
+                            <label class="control-label" for="exampleInputPassword1">Usuário</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"></span>
                                 <input type="text" class="form-control" name="login" value="" placeholder="Usuário">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="exampleInputPassword1"></label>
+                            <label class="control-label" for="exampleInputPassword1">Senha</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"></span>
                                 <input type="password"  name="senha" class="form-control" placeholder="Senha">
@@ -68,3 +71,4 @@
         </div>
     </body>
 </html>
+

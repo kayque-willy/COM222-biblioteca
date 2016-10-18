@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
         response.sendRedirect("/biblioteca/login.jsp");
+    }
+    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
+        response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html>
     <head>
@@ -36,6 +39,7 @@
                         <li class="active"><a href="publicacao.jsp">Publicações</a></li>
                         <li><a href="exemplar.jsp">Exemplares</a></li>
                         <li><a href="relatorio.jsp">Relatório</a></li>
+                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,60 +90,64 @@
                                                 <label class="control-label">Ano</label>
                                                 <input class="form-control" type="text" placeholder="ano" name="ano">
                                             </div>
-                                        <div class="form-group"><label class="control-label">Funcionário</label>
-                                            <select name="funcionario" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <% for (Funcionario f : funcionarios) {%>
-                                                <option value="<%=f.getCodigo()%>"><%=f.getNome() %></option>
-                                               <%}%>
-                                            </select>
-                                            <button type="submit" class="btn btn-success pull-left">Cadastrar</button>
+                                            <div class="form-group"><label class="control-label">Funcionário</label>
+                                                <select name="funcionario" class="form-control">
+                                                    <option value="">Selecione</option>
+                                                    <% for (Funcionario f : funcionarios) {%>
+                                                    <option value="<%=f.getCodigo()%>"><%=f.getNome()%></option>
+                                                    <%}%>
+                                                </select>
+                                                <button type="submit" class="btn btn-success pull-left">Cadastrar</button>
                                         </form>
                                     </div>
                                 </div>
-                          
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ISBN</th>
-                                    <th>Título</th>
-                                    <th>Autor</th>
-                                    <th>Editora</th>
-                                    <th>Ano</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 <% for (Publicacao f : publicacaos) {%>
-                                    <tr>
-                                        <td><%=f.getIsbn()%></td>
-                                        <td><%=f.getTitulo()%></td>
-                                        <td><%=f.getAutor()%></td>
-                                        <td><%=f.getEditora()%></td>
-                                        <td><%=f.getAno()%></td>
-                                    </tr>
-                                 <%}%>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-2">
-                        <form role="form">
-                            <input type="hidden" name="filtro" value="true"/><br/>
-                            <div class="form-group">
-                                <label class="control-label" for="exampleInputEmail1">ISBN</label>
-                                <input name="filtro-isbn" class="form-control" id="exampleInputEmail1" placeholder="Filtrar por codigo" type="text">
+
+                                <div class="col-md-6">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ISBN</th>
+                                                <th>Título</th>
+                                                <th>Autor</th>
+                                                <th>Editora</th>
+                                                <th>Ano</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for (Publicacao f : publicacaos) {%>
+                                            <tr>
+                                                <td><%=f.getIsbn()%></td>
+                                                <td><%=f.getTitulo()%></td>
+                                                <td><%=f.getAutor()%></td>
+                                                <td><%=f.getEditora()%></td>
+                                                <td><%=f.getAno()%></td>
+                                            </tr>
+                                            <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-2">
+                                    <form role="form">
+                                        <input type="hidden" name="filtro" value="true"/><br/>
+                                        <div class="form-group">
+                                            <label class="control-label" for="exampleInputEmail1">ISBN</label>
+                                            <input name="filtro-isbn" class="form-control" id="exampleInputEmail1" placeholder="Filtrar por codigo" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="exampleInputPassword1">Titulo</label>
+                                            <input ame="filtro-titulo" class="form-control" id="exampleInputPassword1" placeholder="Filtrar por titulo" type="text">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-info">Filtrar</button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" for="exampleInputPassword1">Titulo</label>
-                                <input ame="filtro-titulo" class="form-control" id="exampleInputPassword1" placeholder="Filtrar por titulo" type="text">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-info">Filtrar</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-
-</body></html>
+        </div>
+        <div class="section" style="height: 140px; bottom: 0; background-image: url('../resources/image/rodape.jpg');"/>
+    </body>
+</html>

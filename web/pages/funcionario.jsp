@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
         response.sendRedirect("/biblioteca/login.jsp");
+    }
+    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
+        response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html>
     <head>
@@ -13,7 +16,8 @@
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-    </head><body>
+    </head>
+    <body>
         <div class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -34,6 +38,7 @@
                         <li><a href="publicacao.jsp">Publicações</a></li>
                         <li><a href="exemplar.jsp">Exemplares</a></li>
                         <li><a href="relatorio.jsp">Relatório</a></li>
+                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -51,7 +56,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                         <jsp:useBean id="funcionarioController" class="biblioteca.funcionario.FuncionarioController" scope="request" />  
+                                        <jsp:useBean id="funcionarioController" class="biblioteca.funcionario.FuncionarioController" scope="request" />  
                                         <%
                                             List<Funcionario> funcionarios;
                                             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
@@ -101,12 +106,12 @@
                             </thead>
                             <tbody>
                                 <% for (Funcionario f : funcionarios) {%>
-                                    <tr>
-                                        <td><%=f.getCodigo()%></td>
-                                        <td><%=f.getNome()%></td>
-                                        <td><%=f.getEmail()%></td>
-                                        <td><%=f.getEndereco()%></td>
-                                    </tr>
+                                <tr>
+                                    <td><%=f.getCodigo()%></td>
+                                    <td><%=f.getNome()%></td>
+                                    <td><%=f.getEmail()%></td>
+                                    <td><%=f.getEndereco()%></td>
+                                </tr>
                                 <%}%>
                             </tbody>
                         </table>
@@ -132,6 +137,6 @@
                 </div>
             </div>
         </div>
-    
-
-</body></html>
+        <div class="section" style="height: 140px; bottom: 0; background-image: url('../resources/image/rodape.jpg');"/>
+    </body>
+</html>

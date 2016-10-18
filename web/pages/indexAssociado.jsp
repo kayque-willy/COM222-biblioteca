@@ -3,7 +3,7 @@
 <% if (request.getSession().getAttribute("usuario") == null) {
         response.sendRedirect("/biblioteca/login.jsp");
     }
-    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("associado")) {
+    if (request.getSession().getAttribute("tipo") != null && request.getSession().getAttribute("tipo").equals("funcionario")) {
         response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html style="height: 100%">
@@ -29,13 +29,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.jsp">Inicio</a></li>
-                        <li><a href="emprestimo.jsp">Efetuar empréstimos</a></li>
-                        <li><a href="funcionario.jsp">Funcionários</a></li>
-                        <li><a href="associado.jsp">Associados</a></li>
-                        <li><a href="publicacao.jsp">Publicações</a></li>
-                        <li><a href="exemplar.jsp">Exemplares</a></li>
-                        <li><a href="relatorio.jsp">Relatório</a></li>
+                        <li class="active"><a href="indexAssociado.jsp">Inicio</a></li>
+                        <li><a href="emprestimoAssociado.jsp">Concultar empréstimos</a></li>
                         <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
