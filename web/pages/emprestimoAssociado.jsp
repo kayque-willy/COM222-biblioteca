@@ -70,7 +70,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%for (Emprestimo e : emprestimos) {%>
+                          <%for (Emprestimo e : emprestimos) {%>
+                          <tr>
                             <td><%=e.getId()%></td>
                             <td><%=e.getPublicacao_ISBN()%></td>
                             <td><%=e.getExemplar_numero()%></td>
@@ -80,6 +81,7 @@
                             <td><%=dt.format(e.getData_maxima())%></td>
                             <td><%=e.getDias_atraso()%></td>
                             <%}%>
+                          </tr>
                             </tbody>
                         </table>
                     </div>

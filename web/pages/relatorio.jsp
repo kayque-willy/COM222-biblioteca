@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="biblioteca.emprestimo.Emprestimo"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <% if (request.getSession().getAttribute("usuario") == null) {
@@ -52,25 +55,20 @@
                         <th>Código do associado</th>
                     </tr>
                 </thead>
+                <jsp:useBean id="emprestimoController" class="biblioteca.emprestimo.EmprestimoController" scope="request" />  
+                <%
+                    List<Emprestimo> emprestimos;
+                    emprestimos = emprestimoController.emprestimoAtrasado();
+                %>
                 <tbody>
+                    <%for (Emprestimo e : emprestimos) {%>
                     <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>Thornton</td>     
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>the Bird</td>
-                    </tr>
+                        <td><%=e.getId()%></td>
+                        <td><%=e.getPublicacao_ISBN()%></td>
+                        <td><%=e.getExemplar_numero()%></td>
+                        <td><%=e.getAssociado_codigo()%></td>
+                    </tr>            
+                    <%}%>
                 </tbody>
             </table>
         </div>

@@ -186,4 +186,31 @@ public class EmprestimoDAO extends DAO {
         }
         return lista;
     }
+    
+    List<Emprestimo> listarAtrasados() {
+        List<Emprestimo> lista = new ArrayList<>();
+        try {
+            Connection conexao = getConexao();
+            Statement stm = conexao.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from emprestimo where status = 'Emprestado'");
+            Emprestimo emprestimo;
+            while (rs.next()) {
+                emprestimo = new Emprestimo();
+                emprestimo.setId(rs.getInt("id"));
+                emprestimo.setExemplar_numero(rs.getInt("exemplar_numero"));
+                emprestimo.setPublicacao_ISBN(rs.getInt("publicacao_ISBN"));
+                emprestimo.setStatus(rs.getString("status"));
+                emprestimo.setData_emprestimo(rs.getDate("data_emprestimo"));
+                emprestimo.setData_devolucao(rs.getDate("data_devolucao"));
+                emprestimo.setAssociado_codigo(rs.getInt("associado_codigo"));
+                emprestimo.setData_maxima(rs.getDate("data_maxima"));
+                lista.add(emprestimo);
+            }
+            stm.close();
+            conexao.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
