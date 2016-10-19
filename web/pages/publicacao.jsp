@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="exampleInputPassword1">Titulo</label>
-                                            <input ame="filtro-titulo" class="form-control" id="exampleInputPassword1" placeholder="Filtrar por titulo" type="text">
+                                            <input name="filtro-titulo" class="form-control" id="exampleInputPassword1" placeholder="Filtrar por titulo" type="text">
                                         </div>
 
                                         <button type="submit" class="btn btn-info">Filtrar</button>

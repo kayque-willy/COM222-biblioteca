@@ -34,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="indexAssociado.jsp">Inicio</a></li>
-                        <li class="active"><a href="emprestimoAssociado.jsp">Concultar empréstimos</a></li>
+                        <li class="active"><a href="emprestimoAssociado.jsp">Consultar empréstimos</a></li>
                         <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>

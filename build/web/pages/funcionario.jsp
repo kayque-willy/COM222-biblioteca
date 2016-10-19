@@ -60,7 +60,7 @@
                                         <%
                                             List<Funcionario> funcionarios;
                                             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                                                funcionarios = funcionarioController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"));
+                                                funcionarios = funcionarioController.filtrar(!request.getParameter("filtro-codigo").equals("") ? Integer.valueOf(request.getParameter("filtro-codigo")) : 0, request.getParameter("filtro-nome"));
                                             } else {
                                                 funcionarios = funcionarioController.getFuncionarios();
                                             }

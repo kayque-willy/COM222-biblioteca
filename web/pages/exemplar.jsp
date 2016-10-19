@@ -61,7 +61,7 @@
                                             List<Exemplar> exemplars;
                                             List<Publicacao> publicacoes;
                                             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                                                exemplars = exemplarController.filtrar(Integer.valueOf(request.getParameter("filtro-numero")), request.getParameter("filtro-isbn"));
+                                                exemplars = exemplarController.filtrar(!request.getParameter("filtro-numero").equals("") ? Integer.valueOf(request.getParameter("filtro-numero")) : 0, request.getParameter("filtro-isbn"));
                                             } else {
                                                 exemplars = exemplarController.getExemplars();
                                             }

@@ -122,7 +122,7 @@
                                 <%
                                     List<Exemplar> exemplares;
                                     if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                                        exemplares = exemplarController.filtrar(Integer.valueOf(request.getParameter("filtro-exemplar")), request.getParameter("filtro-isbn"));
+                                        exemplares = exemplarController.filtrar(!request.getParameter("filtro-exemplar").equals("") ? Integer.valueOf(request.getParameter("filtro-exemplar")) : 0, request.getParameter("filtro-isbn"));
                                     } else {
                                         exemplares = exemplarController.getExemplars();
                                     }

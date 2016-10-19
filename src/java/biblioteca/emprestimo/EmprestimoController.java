@@ -31,21 +31,23 @@ public class EmprestimoController {
         for (Emprestimo e : es) {
             if (!e.getStatus().equals("Devolvido")) {
                 Long dif = (hoje.getTime() - e.getData_maxima().getTime());
-                if (dif > 0){
-                    e.setDias_atraso(Integer.valueOf(String.valueOf(dif/86400000L)));
-                }else{
+                if (dif > 0) {
+                    e.setDias_atraso(Integer.valueOf(String.valueOf(dif / 86400000L)));
+                } else {
                     e.setDias_atraso(0);
                 }
-                if (e.getData_devolucao() == null){
+                if (e.getData_devolucao() == null) {
                     e.setData_devolucao_view("-");
-                }else{
+                } else {
                     e.setData_devolucao_view(dt.format(e.getData_devolucao()));
                 }
+            } else {
+                e.setData_devolucao_view(dt.format(e.getData_devolucao()));
             }
         }
         return es;
     }
-    
+
     public List<Emprestimo> emprestimoAtrasado() {
         List<Emprestimo> es = new ArrayList<Emprestimo>();
         List<Emprestimo> lista = new ArrayList<Emprestimo>();
@@ -54,7 +56,7 @@ public class EmprestimoController {
         for (Emprestimo e : es) {
             Long dif = (hoje.getTime() - e.getData_maxima().getTime());
             if (dif > 0) {
-               lista.add(e);
+                lista.add(e);
             }
         }
         return lista;

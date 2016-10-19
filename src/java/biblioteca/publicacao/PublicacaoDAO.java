@@ -126,7 +126,7 @@ public class PublicacaoDAO extends DAO {
             if (rs.next()) {
                 publicacao.setAno(rs.getInt("ano"));
                 publicacao.setAutor(rs.getString("autor"));
-                publicacao.setEditora(rs.getString("editor"));
+                publicacao.setEditora(rs.getString("editora"));
                 publicacao.setTitulo(rs.getString("titulo"));
                 publicacao.setIsbn(rs.getInt("isbn"));
                 publicacao.setFuncionario_codigo(rs.getInt("funcionario_codigo"));
@@ -148,16 +148,16 @@ public class PublicacaoDAO extends DAO {
             PreparedStatement pstm = null;
             if ((isbn != null && !isbn.isEmpty()) && (titulo == null || titulo.isEmpty())) {
                 pstm = conexao
-                        .prepareStatement("Select * from publicacao where isbn ilike ?");
-                pstm.setString(1, isbn);
+                        .prepareStatement("Select * from publicacao where isbn = ?");
+                pstm.setInt(1, Integer.valueOf(isbn));
             } else if ((isbn == null || isbn.isEmpty()) && (titulo != null && !titulo.isEmpty())) {
                 pstm = conexao
                         .prepareStatement("Select * from publicacao where titulo ilike ?");
                 pstm.setString(1, titulo);
             } else if ((isbn != null && !isbn.isEmpty()) && (titulo != null && !titulo.isEmpty())) {
                 pstm = conexao
-                        .prepareStatement("Select * from publicacao where isbn ilike ? and titulo ilike ?");
-                pstm.setString(1, isbn);
+                        .prepareStatement("Select * from publicacao where isbn = ? and titulo ilike ?");
+                pstm.setInt(1, Integer.valueOf(isbn));
                 pstm.setString(2, titulo);
             }else if ((isbn == null || isbn.isEmpty()) && (titulo == null || titulo.isEmpty())) {
                 pstm = conexao
@@ -169,7 +169,7 @@ public class PublicacaoDAO extends DAO {
                 publicacao = new Publicacao();
                 publicacao.setAno(rs.getInt("ano"));
                 publicacao.setAutor(rs.getString("autor"));
-                publicacao.setEditora(rs.getString("editor"));
+                publicacao.setEditora(rs.getString("editora"));
                 publicacao.setTitulo(rs.getString("titulo"));
                 publicacao.setIsbn(rs.getInt("isbn"));
                 publicacao.setFuncionario_codigo(rs.getInt("funcionario_codigo"));

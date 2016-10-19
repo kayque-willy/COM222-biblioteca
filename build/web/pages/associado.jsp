@@ -58,7 +58,7 @@
                                         <%
                                             List<Associado> associados;
                                             if (request.getParameter("filtro") != null && request.getParameter("filtro").equals("true")) {
-                                                associados = associadoController.filtrar(Integer.valueOf(request.getParameter("filtro-codigo")), request.getParameter("filtro-nome"), request.getParameter("filtro-tipo"));
+                                                associados = associadoController.filtrar(!request.getParameter("filtro-codigo").equals("") ? Integer.valueOf(request.getParameter("filtro-codigo")) : 0, request.getParameter("filtro-nome"), request.getParameter("filtro-tipo"));
                                             } else {
                                                 associados = associadoController.getAssociados();
                                             }
