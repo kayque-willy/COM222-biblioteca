@@ -80,8 +80,8 @@
                                     <td><%=e.getStatus()%></td>
                                     <td><%=dt.format(e.getData_maxima())%></td>
                                     <td><%=e.getDias_atraso()%></td>
+                                    <%}%>
                                 </tr>
-                                <%}%>
                             </tbody>
                         </table>
                     </div>

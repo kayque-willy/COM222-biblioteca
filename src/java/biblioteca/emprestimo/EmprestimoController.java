@@ -45,6 +45,20 @@ public class EmprestimoController {
         }
         return es;
     }
+    
+    public List<Emprestimo> emprestimoAtrasado() {
+        List<Emprestimo> es = new ArrayList<Emprestimo>();
+        List<Emprestimo> lista = new ArrayList<Emprestimo>();
+        es = dao.listarAtrasados();
+        Date hoje = new Date();
+        for (Emprestimo e : es) {
+            Long dif = (hoje.getTime() - e.getData_maxima().getTime());
+            if (dif > 0) {
+               lista.add(e);
+            }
+        }
+        return lista;
+    }
 
     /*--------- Get e Set ---------*/
     public Emprestimo getEmprestimo() {
