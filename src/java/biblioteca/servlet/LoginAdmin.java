@@ -27,7 +27,7 @@ public class LoginAdmin extends HttpServlet {
 
         if (login != 0 && senha != null) {
             funcionario = dao.consultar(login, senha);
-            if (funcionario != null) {
+            if (funcionario != null && funcionario.getCodigo() != 0) {
                 request.getSession().setAttribute("usuario", funcionario.getNome());
                 request.getSession().setAttribute("tipo", "funcionario");
                 request.getSession().setAttribute("codigo", funcionario.getCodigo());
@@ -39,7 +39,7 @@ public class LoginAdmin extends HttpServlet {
                 // redireciona para página de login com erro
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/loginErro.jsp");
                 //dispatcher.forward(request, response);
-                response.sendRedirect("/loginErroAdmin.jsp");
+                response.sendRedirect("/biblioteca/loginErroAdmin.jsp");
             }
         }
     }

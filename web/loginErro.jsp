@@ -40,7 +40,7 @@
             <div class="container" style="background-color: transparent;">  
                 <div class="row"> 
                     <div class="alert" style="color: red;">
-                        Usuário ou senha inválidos!
+                        <h1 class="text-center">Usuário ou senha inválidos!</h1>
                     </div>
                     <div class="col-md-12"> 
                         <h1 class="text-center">Login do funcionário</h1> 
@@ -51,14 +51,14 @@
                     </div>
                     <form role="form" class="text-center" action="/biblioteca/Login">
                         <div class="form-group">
-                            <label class="control-label" for="exampleInputPassword1">Usuário</label>
+                            <label class="control-label" for="exampleInputPassword1"></label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"></span>
                                 <input type="text" class="form-control" name="login" value="" placeholder="Usuário">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="exampleInputPassword1">Senha</label>
+                            <label class="control-label" for="exampleInputPassword1"></label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-addon"></span>
                                 <input type="password"  name="senha" class="form-control" placeholder="Senha">

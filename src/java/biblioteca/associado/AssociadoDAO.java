@@ -114,6 +114,34 @@ public class AssociadoDAO extends DAO {
         return lista;
     }
 
+    public String consultaTipo(int codigo) {
+        Associado associado;
+        try {
+            associado = new Associado();
+            Connection conexao = getConexao();
+            PreparedStatement pstm = conexao
+                    .prepareStatement("Select * from associado where codigo = ?");
+            pstm.setInt(1, codigo);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                associado.setCodigo(rs.getInt("codigo"));
+                associado.setNome(rs.getString("nome"));
+                associado.setEmail(rs.getString("email"));
+                associado.setEndereco(rs.getString("endereco"));
+                associado.setId(rs.getInt("id"));
+                associado.setSenha(rs.getString("senha"));
+                associado.setStatus(rs.getString("status"));
+                associado.setTipo(rs.getString("tipo"));
+            }
+            pstm.close();
+            conexao.close();
+            return associado.getTipo();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Grad";
+        }
+    }
+
     public Associado consultar(int login, String senha) {
         Associado associado;
         try {

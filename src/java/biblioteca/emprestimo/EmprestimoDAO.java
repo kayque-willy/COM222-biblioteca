@@ -36,8 +36,8 @@ public class EmprestimoDAO extends DAO {
                     + "publicacao_isbn,"
                     + "data_emprestimo,"
                     + "status,"
-                    + "associado_codigo"
-                    + "data_maxima) values (?,?,?,?,?)");
+                    + "associado_codigo,"
+                    + "data_maxima) values (?,?,?,?,?,?)");
             pstm.setInt(1, emprestimo.getExemplar_numero());
             pstm.setInt(2, emprestimo.getPublicacao_ISBN());
             pstm.setDate(3, emprestimo.getData_emprestimo());
@@ -176,6 +176,7 @@ public class EmprestimoDAO extends DAO {
                 emprestimo.setData_emprestimo(rs.getDate("data_emprestimo"));
                 emprestimo.setData_devolucao(rs.getDate("data_devolucao"));
                 emprestimo.setAssociado_codigo(rs.getInt("associado_codigo"));
+                emprestimo.setData_maxima(rs.getDate("data_maxima"));
                 lista.add(emprestimo);
             }
             stm.close();

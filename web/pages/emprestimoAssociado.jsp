@@ -71,13 +71,11 @@
                             </thead>
                             <tbody>
                                 <%for (Emprestimo e : emprestimos) {%>
-                            <td>e.get</td>
                             <td><%=e.getId()%></td>
                             <td><%=e.getPublicacao_ISBN()%></td>
-                            <td><%=e.getId()%></td>
                             <td><%=e.getExemplar_numero()%></td>
                             <td><%=dt.format(e.getData_emprestimo())%></td>
-                            <td><%=dt.format(e.getData_devolucao())%></td>
+                            <td><%=e.getData_devolucao_view()%></td>
                             <td><%=e.getStatus()%></td>
                             <td><%=dt.format(e.getData_maxima())%></td>
                             <td><%=e.getDias_atraso()%></td>

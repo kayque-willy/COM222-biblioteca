@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
 
         if (login != 0 && senha != null) {
             associado = dao.consultar(login, senha);
-            if (associado != null) {
+            if (associado != null && associado.getCodigo() != 0) {
                 request.getSession().setAttribute("usuario", associado.getNome());
                 request.getSession().setAttribute("tipo", "associado");
                 request.getSession().setAttribute("nivel", associado.getStatus());
@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
                 // redireciona para página de login com erro
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/loginErro.jsp");
                 //dispatcher.forward(request, response);
-                response.sendRedirect("/loginErro.jsp");
+                response.sendRedirect("/biblioteca/loginErro.jsp");
             }
         }
     }

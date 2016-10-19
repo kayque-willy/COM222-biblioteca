@@ -23,6 +23,7 @@ public class EmprestimoCRUD extends HttpServlet {
     private Emprestimo emprestimo;
     private EmprestimoDAO emprestimo_dao;
     private ExemplarDAO exemplar_dao;
+    private AssociadoDAO associado_dao;
     private Exemplar exemplar;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,6 +38,7 @@ public class EmprestimoCRUD extends HttpServlet {
 
             //Consulta a disponibilidade do exemplar
             exemplar_dao = new ExemplarDAO();
+            associado_dao = new AssociadoDAO();
             List<Exemplar> verifica;
 
             //Verifica se o exemplar esta disponível
@@ -44,14 +46,16 @@ public class EmprestimoCRUD extends HttpServlet {
             for (Exemplar c : verifica) {
                 //Verifica se o exemplar esta disponível para empréstimo
                 if (c.getStatus().equals("Livre")) {
-                    //Atualizar o status do exemplar para emprestado    
+                    //Atualizar o status do exemplar para emprestado
+                    String tipoAssociado = "";
+                    tipoAssociado = associado_dao.consultaTipo(Integer.valueOf(request.getParameter("codigo_associado")));
                     //Cadastra o empréstimo
                     emprestimo = new Emprestimo();
-                    if (request.getSession().equals("Grad")) {
+                    if (tipoAssociado.equals("Grad")) {
                         emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 604800000L));
-                    } else if (request.getSession().equals("Pos-Grad")) {
+                    } else if (tipoAssociado.equals("Pos-Grad")) {
                         emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 864000000L));
-                    } else if (request.getSession().equals("Prof")) {
+                    } else if (tipoAssociado.equals("Prof")) {
                         emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 1209600000L));
                     }
                     emprestimo.setExemplar_numero(request.getParameter("numero") != null ? Integer.valueOf(request.getParameter("numero")) : 0);

@@ -14,6 +14,7 @@ public class Emprestimo {
     private String status;
     private Date data_maxima;
     private int dias_atraso;
+    private String data_devolucao_view;
 
     /*---------- Métodos ----------*/
     public void emprestimo() {
@@ -91,6 +92,14 @@ public class Emprestimo {
 
     public void setDias_atraso(int dias_atraso) {
         this.dias_atraso = dias_atraso;
+    }
+
+    public String getData_devolucao_view() {
+        return data_devolucao_view;
+    }
+
+    public void setData_devolucao_view(String data_devolucao_view) {
+        this.data_devolucao_view = data_devolucao_view;
     }
 
 }
