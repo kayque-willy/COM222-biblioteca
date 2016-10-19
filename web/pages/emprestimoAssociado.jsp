@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="biblioteca.emprestimo.Emprestimo"%>
 <%@page import="java.util.List"%>
 <%@page import="biblioteca.associado.Associado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +11,7 @@
         response.sendRedirect("/biblioteca/login.jsp");
     }%>
 <html>
-<head>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -17,8 +19,8 @@
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
     </head>
-<body>
-       <div class="navbar navbar-default navbar-static-top">
+    <body>
+        <div class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -38,13 +40,20 @@
                 </div>
             </div>
         </div>
-            <div class="section">
+        <div class="section">
             <div class="container">
-                <div class="row"><div class="col-md-12"><form class="form-horizontal" role="form"><div class="form-group"><div class="col-sm-2"><label for="inputEmail3" class="control-label">ISBN</label></div><div class="col-sm-10"><input type="email" class="form-control" id="inputEmail3" placeholder="Filtrar por ISBN"></div></div><div class="form-group"><div class="col-sm-2"><label for="inputPassword3" class="control-label">Número do exemplar</label></div><div class="col-sm-10"><input type="text" class="form-control" id="inputPassword3" placeholder="Filtrar por número do exemplar"></div></div><div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-primary">Filtrar</button></div></div></form></div></div><div class="row">
+                <!--<div class="row"><div class="col-md-12"><form class="form-horizontal" role="form"><div class="form-group"><div class="col-sm-2"><label for="inputEmail3" class="control-label">ISBN</label></div><div class="col-sm-10"><input type="email" class="form-control" id="inputEmail3" placeholder="Filtrar por ISBN"></div></div><div class="form-group"><div class="col-sm-2"><label for="inputPassword3" class="control-label">Número do exemplar</label></div><div class="col-sm-10"><input type="text" class="form-control" id="inputPassword3" placeholder="Filtrar por número do exemplar"></div></div><div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-primary">Filtrar</button></div></div></form></div></div>-->
+                <div class="row">
                     <div class="col-md-12">
                         <h2 class="text-center">Empréstimos do usuário</h2>
                     </div>
                 </div>
+                <jsp:useBean id="emprestimoController" class="biblioteca.emprestimo.EmprestimoController" scope="request" />  
+                <%
+                    SimpleDateFormat dt = new SimpleDateFormat("dd/MM/YYYY");
+                    List<Emprestimo> emprestimos;
+                    emprestimos = emprestimoController.emprestimosAssociado(Integer.valueOf(request.getSession().getAttribute("codigo").toString()));
+                %>
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table">
@@ -61,29 +70,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td><td>Otto</td><td>Otto</td><td>Otto</td><td>Otto</td><td>Otto</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td><td>Thornton</td><td>Thornton</td><td>Thornton</td><td>Thornton</td><td>Thornton</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td><td>the Bird</td><td>the Bird</td><td>the Bird</td><td>the Bird</td><td>the Bird</td>
-                                    
-                                </tr>
+                                <%for (Emprestimo e : emprestimos) {%>
+                            <td>e.get</td>
+                            <td><%=e.getId()%></td>
+                            <td><%=e.getPublicacao_ISBN()%></td>
+                            <td><%=e.getId()%></td>
+                            <td><%=e.getExemplar_numero()%></td>
+                            <td><%=dt.format(e.getData_emprestimo())%></td>
+                            <td><%=dt.format(e.getData_devolucao())%></td>
+                            <td><%=e.getStatus()%></td>
+                            <td><%=dt.format(e.getData_maxima())%></td>
+                            <td><%=e.getDias_atraso()%></td>
+                            <%}%>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        </body>
+        <div class="section" style="height: 140px; bottom: 0; background-image: url('../resources/image/rodape.jpg');"/>       
+    </body>
 </html>

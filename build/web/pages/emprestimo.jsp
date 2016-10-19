@@ -42,6 +42,7 @@
                         <li><a href="publicacao.jsp">Publicações</a></li>
                         <li><a href="exemplar.jsp">Exemplares</a></li>
                         <li><a href="relatorio.jsp">Relatório</a></li>
+                        <li><a href="/biblioteca/Logout">Sair</a></li>
                     </ul>
                 </div>
             </div>

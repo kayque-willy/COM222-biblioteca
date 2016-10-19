@@ -12,7 +12,8 @@ public class Emprestimo {
     private Date data_emprestimo;
     private Date data_devolucao;
     private String status;
-    private Double codigo;
+    private Date data_maxima;
+    private int dias_atraso;
 
     /*---------- Métodos ----------*/
     public void emprestimo() {
@@ -68,20 +69,28 @@ public class Emprestimo {
         this.status = status;
     }
 
-    public Double getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Double codigo) {
-        this.codigo = codigo;
-    }
-    
-     public int getPublicacao_ISBN() {
+    public int getPublicacao_ISBN() {
         return publicacao_ISBN;
     }
 
     public void setPublicacao_ISBN(int publicacao_ISBN) {
         this.publicacao_ISBN = publicacao_ISBN;
+    }
+
+    public Date getData_maxima() {
+        return data_maxima;
+    }
+
+    public void setData_maxima(Date data_maxima) {
+        this.data_maxima = data_maxima;
+    }
+
+    public int getDias_atraso() {
+        return dias_atraso;
+    }
+
+    public void setDias_atraso(int dias_atraso) {
+        this.dias_atraso = dias_atraso;
     }
 
 }

@@ -30,6 +30,7 @@ public class Login extends HttpServlet {
             if (associado != null) {
                 request.getSession().setAttribute("usuario", associado.getNome());
                 request.getSession().setAttribute("tipo", "associado");
+                request.getSession().setAttribute("nivel", associado.getStatus());
                 request.getSession().setAttribute("codigo", associado.getCodigo());
                 // redireciona para página principal
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");

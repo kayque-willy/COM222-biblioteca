@@ -1,7 +1,6 @@
 package biblioteca.publicacao;
 
 import biblioteca.dao.DAO;
-import biblioteca.funcionario.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

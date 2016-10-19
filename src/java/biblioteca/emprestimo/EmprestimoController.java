@@ -1,8 +1,7 @@
 package biblioteca.emprestimo;
 
-import biblioteca.exemplar.Exemplar;
-import biblioteca.publicacao.Publicacao;
-import biblioteca.publicacao.PublicacaoDAO;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EmprestimoController {
@@ -11,16 +10,33 @@ public class EmprestimoController {
     private Emprestimo emprestimo;
     private EmprestimoDAO dao;
     private List<Emprestimo> emprestimos;
-   
+
     /*--------- Métodos ---------*/
     public EmprestimoController() {
         this.emprestimo = new Emprestimo();
         this.dao = new EmprestimoDAO();
         this.emprestimos = dao.listar();
     }
-    
+
     public List<Emprestimo> filtrar(int id, String isbn) {
         return dao.filtrar(id, isbn);
+    }
+
+    public List<Emprestimo> emprestimosAssociado(int associadoCodigo) {
+        List<Emprestimo> es = new ArrayList<Emprestimo>();
+        es = dao.listarPorAssociado(associadoCodigo);
+        Date hoje = new Date();
+        for (Emprestimo e : es) {
+            if (!e.getStatus().equals("Devolvido")) {
+                Long dif = (hoje.getTime() - e.getData_maxima().getTime());
+                if (dif > 0){
+                    e.setDias_atraso(Integer.valueOf(String.valueOf(dif%86400000L)));
+                }else{
+                    e.setDias_atraso(0);
+                }
+            }
+        }
+        return es;
     }
 
     /*--------- Get e Set ---------*/
@@ -47,5 +63,5 @@ public class EmprestimoController {
     public void setEmprestimos(List<Emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
     }
-    
+
 }

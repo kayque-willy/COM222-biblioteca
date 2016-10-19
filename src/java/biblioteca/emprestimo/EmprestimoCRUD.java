@@ -47,6 +47,13 @@ public class EmprestimoCRUD extends HttpServlet {
                     //Atualizar o status do exemplar para emprestado    
                     //Cadastra o empréstimo
                     emprestimo = new Emprestimo();
+                    if (request.getSession().equals("Grad")) {
+                        emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 604800000L));
+                    } else if (request.getSession().equals("Pos-Grad")) {
+                        emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 864000000L));
+                    } else if (request.getSession().equals("Prof")) {
+                        emprestimo.setData_maxima(new Date(Date.valueOf(request.getParameter("data_emprestimo")).getTime() + 1209600000L));
+                    }
                     emprestimo.setExemplar_numero(request.getParameter("numero") != null ? Integer.valueOf(request.getParameter("numero")) : 0);
                     emprestimo.setPublicacao_ISBN(request.getParameter("isbn") != null ? Integer.valueOf(request.getParameter("isbn")) : 0);
                     emprestimo.setData_emprestimo(request.getParameter("data_emprestimo") != null ? Date.valueOf(request.getParameter("data_emprestimo")) : null);
@@ -118,8 +125,10 @@ public class EmprestimoCRUD extends HttpServlet {
                                     double dias = a.get(Calendar.DAY_OF_MONTH);
 
                                     //Se a data de entrega for menor ou igual que a data de empréstimo, desconsidera o calculo
-                                    if (data_devolucao.compareTo(data_emprestimo) == 0)  dias = 0;
-                                       
+                                    if (data_devolucao.compareTo(data_emprestimo) == 0) {
+                                        dias = 0;
+                                    }
+
                                     //Mensagem da multa
                                     response.setContentType("text/html");
                                     PrintWriter out = response.getWriter();
@@ -141,7 +150,7 @@ public class EmprestimoCRUD extends HttpServlet {
                             }
                         }
                     }
-                }else{
+                } else {
                     response.sendRedirect("/biblioteca/pages/emprestimo.jsp");
                 }
             }

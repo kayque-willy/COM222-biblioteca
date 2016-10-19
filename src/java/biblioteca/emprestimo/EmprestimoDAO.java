@@ -1,8 +1,8 @@
 package biblioteca.emprestimo;
 
 import biblioteca.dao.DAO;
-import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmprestimoDAO extends DAO {
-    
+
     public boolean alterar(Emprestimo emprestimo) {
-	try {
+        try {
             Connection conexao = getConexao();
             PreparedStatement pstmt = conexao.prepareStatement("Update emprestimo SET status = ? , data_devolucao = ? WHERE id = ?");
             pstmt.setString(1, emprestimo.getStatus());
@@ -21,12 +21,12 @@ public class EmprestimoDAO extends DAO {
             pstmt.execute();
             pstmt.close();
             conexao.close();
-            return true;  
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-	}
+    }
 
     public boolean inserir(Emprestimo emprestimo) {
         try {
@@ -36,12 +36,14 @@ public class EmprestimoDAO extends DAO {
                     + "publicacao_isbn,"
                     + "data_emprestimo,"
                     + "status,"
-                    + "associado_codigo) values (?,?,?,?,?)");
+                    + "associado_codigo"
+                    + "data_maxima) values (?,?,?,?,?)");
             pstm.setInt(1, emprestimo.getExemplar_numero());
             pstm.setInt(2, emprestimo.getPublicacao_ISBN());
             pstm.setDate(3, emprestimo.getData_emprestimo());
             pstm.setString(4, emprestimo.getStatus());
             pstm.setInt(5, emprestimo.getAssociado_codigo());
+            pstm.setDate(6, emprestimo.getData_maxima());
             pstm.execute();
             pstm.close();
             conexao.close();
@@ -96,7 +98,7 @@ public class EmprestimoDAO extends DAO {
                         .prepareStatement("Select * from emprestimo where id = ? and publicacao_ISBN = ?");
                 pstm.setInt(1, id);
                 pstm.setString(2, isbn);
-            }else if (id == 0 && (isbn == null || isbn.isEmpty())) {
+            } else if (id == 0 && (isbn == null || isbn.isEmpty())) {
                 pstm = conexao
                         .prepareStatement("Select * from emprestimo");
             }
@@ -122,7 +124,7 @@ public class EmprestimoDAO extends DAO {
             return null;
         }
     }
-    
+
 //	public void excluir(Exemplar exemplar) {
 //		try {
 //			Connection conexao = getConexao();
@@ -158,4 +160,29 @@ public class EmprestimoDAO extends DAO {
 //	}
 //  
     /**/
+    List<Emprestimo> listarPorAssociado(int associadoCodigo) {
+        List<Emprestimo> lista = new ArrayList<>();
+        try {
+            Connection conexao = getConexao();
+            Statement stm = conexao.createStatement();
+            ResultSet rs = stm.executeQuery("Select * from emprestimo where associado_codigo = " + associadoCodigo);
+            Emprestimo emprestimo;
+            while (rs.next()) {
+                emprestimo = new Emprestimo();
+                emprestimo.setId(rs.getInt("id"));
+                emprestimo.setExemplar_numero(rs.getInt("exemplar_numero"));
+                emprestimo.setPublicacao_ISBN(rs.getInt("publicacao_ISBN"));
+                emprestimo.setStatus(rs.getString("status"));
+                emprestimo.setData_emprestimo(rs.getDate("data_emprestimo"));
+                emprestimo.setData_devolucao(rs.getDate("data_devolucao"));
+                emprestimo.setAssociado_codigo(rs.getInt("associado_codigo"));
+                lista.add(emprestimo);
+            }
+            stm.close();
+            conexao.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
